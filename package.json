@@ -1,0 +1,29 @@
+{
+  "name": "dsh-zai-usage",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Z.AI usage dashboard for the DeepSeek Harness: coding-plan quota bars + local token statistics (Vue + Apache ECharts)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vue/test-utils": "^2.5.1",
+    "echarts": "^6.1.0",
+    "happy-dom": "^20.14.5",
+    "vite": "^8.3.3",
+    "vite-plugin-css-injected-by-js": "^5.0.2",
+    "vue": "^3.5.43",
+    "vue-echarts": "^8.3.1"
+  },
+  "license": "MIT"
+}
