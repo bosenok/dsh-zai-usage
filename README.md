@@ -17,6 +17,27 @@ The client half is served from `lib/client.js` (`dsh.client.platform: web`).
 Enabling the bundle mounts the plugin; HMR applies it to a running app, and a
 restart makes sure the client half is rebuilt.
 
+## Where the key comes from
+
+The host half declares `inject: ['credentials']` and resolves the key through the
+harness credential service — the same canonical seam the Z.AI provider itself
+uses:
+
+```js
+const resolved = await ctx.credentials.resolve('ZAI_API_KEY')
+```
+
+So there is nothing plugin-specific to configure. The value is found in the
+service's layers: the credential store written when the Z.AI provider is
+configured (`~/.dsh/.credentials.yaml` → `refs`), or the environment layers
+(`~/.dsh/.env`, inherited environment, the project's `.env`). The value never
+reaches the browser: the client half renders the quota snapshot only.
+
+Missing key: the panel shows `ZAI_API_KEY is not set in the credential store`, and
+the snapshot `~/.dsh/usage/zai-usage.json` carries `debug` with the resolution
+state (`credsService`, `resolve`) — for instance
+`{"credsService":"ok","resolve":"value(49) source=file"}`.
+
 ## Development
 
 `lib/` is built and committed; the sources live in `src/`. Rebuild the client with
